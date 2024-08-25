@@ -1,0 +1,4 @@
+# ignore obj and exe files
+
+*.out
+*.exe

@@ -10,7 +10,7 @@ void delete_atEnd();
 void delete_at_anyPosition();
 void display_node();
 void count_node();
-void linear_search(item);
+void linear_search(int item);
 	
 struct node 
 {
@@ -23,6 +23,7 @@ struct node *start;
 int main()
 {
 	int choice;
+	int item;
 	bool flag = true;
 	while(flag)
 	{
@@ -34,7 +35,7 @@ int main()
 		printf("Press 5 to delete at any position \n");
 		printf("Press 6 to display the list \n");
 		printf("Press 7 to count the node in the list \n");
-		printf("Press ")
+		printf("Press 8 to search the node in the list \n");
 		printf("Press any other key to exit \n");
 		scanf("%d",&choice);
 		switch(choice)
@@ -54,6 +55,10 @@ int main()
 			case 6 : display_node();
 			         break;
 			case 7 : count_node();
+					 break;
+			case 8 : printf("Enter the element to be searched : \n");
+					 scanf("%d",&item);
+					 linear_search(item);
 					 break;
 		    default : flag = false;
 		              exit(0);
@@ -263,3 +268,34 @@ void count_node()
 		printf("There is %d node in the list \n",i);
 	}
 }
+
+void linear_search(int item)
+{
+	int count = 0;
+	bool flag = false;
+	struct node *ptr;
+	ptr = start;
+	if (ptr == NULL)
+	{
+		printf("There is no element in the node \n");
+	}
+	else
+	{
+		while(ptr!= NULL)
+		{
+			count++;
+			if(ptr->data == item)
+			{
+				flag = true;
+				printf("Item found in the node %d \n",count);
+				return;
+			}
+			ptr = ptr -> next ;
+		}
+	}
+	if(!flag)
+	{
+		printf("Item not found in the List \n");
+	}
+}
+
