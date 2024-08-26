@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert_atEnd();
+void display_node();
+
+struct node
+{
+	int data;
+	struct node *next;
+};
+ 
+struct node *start;
+
+int main()
+{
+	int choice;
+	do
+	{
+		insert_atEnd();
+		printf("Press 0 to insert more  \n");
+		scanf("%d",&choice);
+	}while(choice==0);
+	display_node();
+	return 0;
+}
+
+void insert_atEnd()
+{
+	struct node *ptr = (struct node *)malloc(sizeof(struct node));
+	if(ptr == NULL)
+	{
+		printf("\n Overflow");
+	}
+	else
+	{
+		int item;
+		struct node *currentNode;
+		printf("Enter the number you want to insert into the node : \n");
+		scanf("%d",&item);
+		ptr->data = item;
+		ptr->next = NULL;
+		if(start == NULL)
+		{
+			start = ptr;
+		}
+		else
+		{	
+			currentNode = start;
+			while(currentNode -> next != NULL)
+			{
+				currentNode = currentNode -> next;
+			}
+			  	currentNode -> next = ptr;
+		}
+		printf("\nNew node inserted \n");
+	}
+	
+}
+
+
+void display_node()
+{
+	if(start == NULL)  
+    {  
+        printf("\nList is empty");  
+    }  
+    else   
+    { 
+		struct node *ptr = start;
+	    while (ptr != NULL) 
+		{
+	        printf("%d \t ", ptr->data);
+	        ptr = ptr->next;
+	    }    
+    }
+    printf("\n");
+}
