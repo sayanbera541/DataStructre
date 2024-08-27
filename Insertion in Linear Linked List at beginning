@@ -29,16 +29,16 @@ int main()
 
 void insert_atBegining(int item)
 {
-	struct node *ptr = (struct node *)malloc(sizeof(struct node));
-	if(ptr == NULL)
+	struct node *new_node = (struct node *)malloc(sizeof(struct node));
+	if(new_node == NULL)
 	{
 		printf("\n Overflow");
 	}
 	else
 	{
-		ptr->data = item;
-		ptr->next = start;
-		start = ptr; 
+		new_node->data = item;
+		new_node->next = start;
+		start = new_node; 
 		printf("\nNew node inserted \n");
 	}	
 }
