@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert_atBegining();
+void delete_atEnd();
+void display_node();
+
+struct node 
+{
+    int data;
+    struct node *next;
+};
+
+struct node *start;
+
+int main()
+{
+	int choice;
+	while( choice != 3)
+	{
+		printf("\nPress 1 to insert the node\n");
+		printf("Press 2 to delete end \n");
+		printf("Press 3 to exit \n");
+		printf("\nEnter your choice :");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1 : insert_atBegining();
+			         display_node();
+			         break;
+			case 2 : delete_atEnd();
+			          display_node();
+			         break;			 		      
+			case 3 : exit(0);
+		    default :printf("\nEnter valid choice??\n");  
+		}
+	}
+	return 0;
+}
+
+void insert_atBegining()
+{
+	struct node *new_node = (struct node *)malloc(sizeof(struct node));
+	if(new_node == NULL)
+	{
+		printf("\n Overflow");
+	}
+	else
+	{
+		int item;
+		printf("Enter the number you want to insert into the node : \n");
+		scanf("%d",&item);
+		new_node->data = item;
+		new_node->next = start;
+		start = new_node; 
+		printf("\nNew node inserted \n");
+	}
+	
+}
+
+void delete_atEnd()  
+{  
+    struct node *curr_node;
+	struct node *prev_node;
+	curr_node = start;  
+	if(start==NULL)
+	{
+		printf("List is empty \n");
+		return;
+	}
+    while ( curr_node != NULL)
+	{
+		prev_node = curr_node;
+		curr_node = curr_node -> next;
+		if(curr_node -> next == NULL)
+		{
+			prev_node -> next = NULL;
+			break;
+		}
+    }
+	printf("\nNode deleted from the end of list ...\n");       
+}
+
+void display_node()
+{
+	if(start == NULL)  
+    {  
+        printf("\nList is empty");  
+    }  
+    else   
+    { 
+		struct node *ptr = start;
+	    while (ptr != NULL) 
+		{
+	        printf("%d \t ", ptr->data);
+	        ptr = ptr->next;
+	    }    
+    }
+    printf("\n");
+}
