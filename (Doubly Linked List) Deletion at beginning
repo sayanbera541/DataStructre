@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert_atBegining();
+void delete_atBegining();
+void display_node();
+
+struct node 
+{
+    int data;
+    struct node *prev;
+    struct node *next; // Pointer to the next node
+};
+
+struct node *start = NULL;
+
+int main()
+{
+    int choice;
+    while(choice != 4)
+    {
+        printf("\nPress 1 to insert at any Position \n");
+        printf("Press 2 to Delete at beginning \n");
+        printf("Press 3 to Display the node  \n");
+        printf("Press 4 to exit \n");
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: insert_atBegining();
+                    break;
+            case 2: delete_atBegining();
+			        break;        
+            case 3: display_node();
+                    break;
+            case 4: exit(0);
+            default: printf("\nEnter valid choice!!\n");  
+        }
+    }
+    return 0;
+}
+
+void insert_atBegining()
+{
+	struct node *new_node = (struct node *)malloc(sizeof(struct node));
+	if(new_node == NULL)
+	{
+		printf("\n Overflow");
+	}
+	else
+	{
+		int item;
+		printf("Enter the number you want to insert into the node : ");
+		scanf("%d",&item);
+		if(start ==  NULL)
+		{
+		   new_node->next = NULL;  
+	       new_node->prev=NULL;  
+	       new_node->data=item;  
+	       start=new_node;
+		}
+		else
+		{
+		new_node->data = item;
+		new_node->next = start;
+		new_node->prev = NULL;
+		start = new_node; 
+	    }
+		printf("New node inserted \n");
+	}
+	
+}
+
+void delete_atBegining()
+{
+	struct node *ptr;
+	if(start == NULL)
+	{
+		printf("\nList is empty \n");
+	}
+	else
+	{
+		ptr = start;
+		start = ptr->next;
+		if(start != NULL)
+		{
+			start->prev = NULL;
+		}
+		free(ptr);
+		printf("\nNode deleted from the beginning...\n");
+	}
+}
+
+void display_node()
+{
+    if (start == NULL)  
+    {  
+        printf("\nList is empty\n");  
+    }  
+    else   
+    { 
+        struct node *ptr = start;
+        printf("Printing values...\n");  
+        while (ptr != NULL) 
+        {
+            printf("%d \t", ptr->data);
+            ptr = ptr->next;
+        }    
+    }
+    printf("\n");
+}
