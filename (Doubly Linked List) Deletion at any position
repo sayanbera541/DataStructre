@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert_atBegining();
+void delete_at_anyPosition();
+void display_node();
+
+struct node 
+{
+    int data;
+    struct node *prev;
+    struct node *next; // Pointer to the next node
+};
+
+struct node *start;
+
+int main()
+{
+    int choice;
+    while(choice != 4)
+    {
+        printf("\nPress 1 to insert at any Position \n");
+        printf("Press 2 to Delete at any position \n");
+        printf("Press 3 to Display the node  \n");
+        printf("Press 4 to exit \n");
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: insert_atBegining();
+                    break;
+            case 2: delete_at_anyPosition();
+			        break;        
+            case 3: display_node();
+                    break;
+            case 4: exit(0);
+            default: printf("\nEnter valid choice!!\n");  
+        }
+    }
+    return 0;
+}
+
+void insert_atBegining()
+{
+	struct node *new_node = (struct node *)malloc(sizeof(struct node));
+	if(new_node == NULL)
+	{
+		printf("\n Overflow");
+	}
+	else
+	{
+		int item;
+		printf("Enter the number you want to insert into the node : \n");
+		scanf("%d",&item);
+		new_node->data = item;
+		new_node->next = start;
+		new_node->prev = NULL;
+		
+		if (start != NULL)
+		{
+			start->prev = new_node;
+		}
+		
+		start = new_node; 
+		printf("\nNew node inserted \n");
+	}
+}
+void delete_at_anyPosition()
+{
+	struct node *ptr;
+	int loc, i = 1;
+	if(start == NULL)
+	{
+		printf("\nList is empty \n");
+		return;
+	}
+	printf("Enter the position you want to delete the node: \n");
+	scanf("%d",&loc);
+	ptr = start;
+	while(i < loc && ptr != NULL)
+	{
+		ptr = ptr->next;
+		i++;
+	}
+	if(ptr == NULL)
+	{
+		printf("Invalid position \n");
+	}
+	else
+	{
+		if(ptr->prev != NULL)
+		{
+			ptr->prev->next = ptr->next;
+		}
+		else
+		{
+			start = ptr->next;  // If node to delete is the first node
+		}
+		if(ptr->next != NULL)
+		{
+			ptr->next->prev = ptr->prev;
+		}
+		free(ptr);
+		printf("\nNode deleted from position %d...\n", loc);
+	}
+}
+
+
+void display_node()
+{
+	if(start == NULL)  
+    {  
+        printf("\nList is empty");  
+    }  
+    else   
+    { 
+		struct node *ptr = start;
+		printf("printing values .....\n");  
+	    while (ptr != NULL) 
+		{
+	        printf("%d \t ", ptr->data);
+	        ptr = ptr->next;
+	    }    
+    }
+    printf("\n");
+}
