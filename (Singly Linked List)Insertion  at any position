@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void insert_atBegining();
 void insert_at_anyPosition();
 void display_node();
 
@@ -15,24 +16,46 @@ struct node *start = NULL;
 int main()
 {
     int choice;
-    while(choice != 3)
+    while(choice != 4)
     {
-        printf("\nPress 1 to insert at any Position \n");
-        printf("Press 2 to Display the node  \n");
-        printf("Press 3 to exit \n");
+    	printf("\nPress 1 to insert the nodes  \n");
+        printf("Press 2 to insert at any Position \n");
+        printf("Press 3 to Display the node  \n");
+        printf("Press 4 to exit \n");
         printf("\nEnter your choice: ");
         scanf("%d",&choice);
         switch(choice)
         {
-            case 1: insert_at_anyPosition();
+        	case 1: insert_atBegining();
+        	        break;
+            case 2: insert_at_anyPosition();
                     break;
-            case 2: display_node();
+            case 3: display_node();
                     break;
-            case 3: exit(0);
+            case 4: exit(0);
             default: printf("\nEnter valid choice!!\n");  
         }
     }
     return 0;
+}
+
+void insert_atBegining()
+{
+	struct node *new_node = (struct node *)malloc(sizeof(struct node));
+	int item;
+	printf("Enter the numeber you want to insert :");
+	scanf("%d",&item);
+	if(new_node == NULL)
+	{
+		printf("\n Overflow");
+	}
+	else
+	{
+		new_node->data = item;
+		new_node->next = start;
+		start = new_node; 
+		printf("\nNew node inserted \n");
+	}	
 }
 
 void insert_at_anyPosition()
@@ -77,13 +100,13 @@ void insert_at_anyPosition()
         new_node->data = item;
         new_node->next = curr_node;
         
-        if (temp_node != NULL)  // Not applicable for the first position in an empty list
+        if (temp_node != NULL)
         {        
             temp_node->next = new_node;
         }
         else
         {
-            // Applicable only for the first position in an empty list
+            
             start = new_node;    
         }
 
