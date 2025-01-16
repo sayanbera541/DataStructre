@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert_at_anyPosition();
+void display_node();
+
+struct node 
+{
+    int data;
+    struct node *next;
+};
+
+struct node *start = NULL;
+
+int main()
+{
+    int choice;
+    while(choice != 4)
+    {
+        printf("Press 1 to insert at any Position \n");
+        printf("Press 2 to Display the node  \n");
+        printf("Press 3 to exit \n");
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: insert_at_anyPosition();
+                    break;
+            case 2: display_node();
+                    break;
+            case 3: exit(0);
+            default: printf("\nEnter valid choice!!\n");  
+        }
+    }
+    return 0;
+}
+
+void insert_at_anyPosition()
+{
+    struct node *curr_node = NULL;
+    struct node *temp_node = NULL;
+    curr_node = start;
+    int i, loc;
+    printf("Enter the position you want to insert the node: \n");
+    scanf("%d", &loc);
+    if (start == NULL && loc != 1)
+    {
+        printf("List is empty\n");
+        return;
+    }
+    
+    for (i = 1; i < loc; i++)
+    {
+        if (curr_node == NULL)
+        {
+            printf("There is no element at position %d\n", loc);
+            return;
+        }
+        else
+        {
+            temp_node = curr_node;
+            curr_node = curr_node->next;
+        }
+    }
+    
+    struct node *new_node = (struct node *)malloc(sizeof(struct node));
+    if (new_node == NULL)
+    {
+        printf("OVERFLOW\n");
+        return;    
+    }
+    else
+    {
+        int item;
+        printf("Enter the number you want to insert into the node: \n");
+        scanf("%d", &item);
+        new_node->data = item;
+        new_node->next = curr_node;
+        
+        if (temp_node != NULL)
+        {        
+            temp_node->next = new_node;
+        }
+        else
+        {
+            
+            start = new_node;    
+        }
+
+        printf("\nNew node inserted at position %d\n", loc);
+    }        
+}
+
+void display_node()
+{
+    if (start == NULL)  
+    {  
+        printf("\nList is empty\n");  
+    }  
+    else   
+    { 
+        struct node *ptr = start;
+        printf("Printing values...\n");  
+        while (ptr != NULL) 
+        {
+            printf("%d \t", ptr->data);
+            ptr = ptr->next;
+        }    
+    }
+    printf("\n");
+}
